@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0a0f14;
+  color: white;
+}
+
+/* NAV */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+}
+
+/* HERO */
+.hero {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.hero h1 {
+  font-size: 60px;
+}
+
+.hero p {
+  margin: 20px 0;
+  max-width: 500px;
+}
+
+.btn {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background: #00c6ff;
+  color: black;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+/* ABOUT */
+.about {
+  padding: 80px 50px;
+}
+
+.about-container {
+  display: flex;
+  gap: 40px;
+}
+
+.about img {
+  width: 300px;
+  border-radius: 10px;
+}
+
+/* EXPERIENCE */
+.experience {
+  padding: 80px 50px;
+}
+
+.exp-card {
+  background: #111;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* PROJECTS */
+.projects {
+  padding: 80px 50px;
+}
+
+.project-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.project {
+  background: #111;
+  padding: 20px;
+  flex: 1;
+}
+
+/* STACK */
+.stack {
+  padding: 80px 50px;
+}
+
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stack-grid div {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+}
+
+/* CTA */
+.cta {
+  padding: 80px 50px;
+  text-align: center;
+}
+
+.whatsapp {
+  background: green;
+}
+
+.email {
+  background: #00c6ff;
+}
+
+.github {
+  background: gray;
+}
