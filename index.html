@@ -3,124 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Johann Sebastian Guevara</title>
+  <meta name="description" content="Portafolio profesional de Johann Sebastian Guevara, Ingeniero de Sistemas y Desarrollador Web en Lima, Perú.">
+  <meta name="keywords" content="Ingeniero de Sistemas, Desarrollador Web, Portafolio, ERP Logístico, Networking, Servidores">
+  <meta name="author" content="Johann Sebastian Guevara">
+  <title>Johann Sebastian Guevara | Ingeniero de Sistemas y Desarrollador Web</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header class="navbar" id="top">
+    <a class="logo" href="#hero" aria-label="Ir al inicio">JSG<span>.</span></a>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="logo">J.S. Guevara</div>
-  <nav>
-    <a href="#">About</a>
-    <a href="#">Experience</a>
-    <a href="#">Projects</a>
-    <a href="#">Skills</a>
-    <a href="#">Contact</a>
-  </nav>
-</header>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainMenu" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h5>INGENIERO DE SISTEMAS & DESARROLLADOR WEB</h5>
-    <h1>Johann Sebastian<br>Guevara</h1>
-    <p>Transformando negocios a través de la tecnología. Arquitectura de sistemas robustos y experiencias digitales de alto rendimiento.</p>
+    <nav class="nav-links" id="mainMenu" aria-label="Navegación principal">
+      <a href="#about">Sobre mí</a>
+      <a href="#experience">Experiencia</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#stack">Stack</a>
+      <a href="#certifications">Certificaciones</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+  </header>
 
-    <div class="buttons">
-      <button class="btn primary">VER PROYECTOS</button>
-      <button class="btn secondary">CONTACTAR</button>
-    </div>
-  </div>
-</section>
+  <main>
+    <section class="hero reveal" id="hero">
+      <div class="hero-glow"></div>
+      <div class="container hero-content">
+        <p class="eyebrow">INGENIERO DE SISTEMAS & DESARROLLADOR WEB</p>
+        <h1>Johann Sebastian Guevara</h1>
+        <h2>Arquitectura digital, sistemas empresariales y web de alto impacto.</h2>
+        <p class="hero-claim">Transformando negocios con tecnología.</p>
 
-<!-- SOBRE MI -->
-<section class="about">
-  <div class="about-container">
-    <img src="assets/img/perfil.jpg" alt="perfil">
-
-    <div>
-      <h2>Especialista en Infraestructura y Desarrollo</h2>
-      <p>
-        Mi enfoque combina la precisión técnica de la ingeniería de sistemas con la creatividad del desarrollo web moderno.
-        Diseño sistemas robustos, escalables y seguros.
-      </p>
-
-      <div class="cards">
-        <div class="card">Networking</div>
-        <div class="card">Servers</div>
+        <div class="cta-row">
+          <a href="#projects" class="btn btn-primary">Ver proyectos</a>
+          <a href="#contact" class="btn btn-secondary">Contactar</a>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- EXPERIENCIA -->
-<section class="experience">
-  <h2>Trayectoria Profesional</h2>
+    <section class="section reveal" id="about">
+      <div class="container about-grid">
+        <figure class="about-image glass-card">
+          <img src="assets/img/perfil.jpg" alt="Foto profesional de Johann Sebastian Guevara" loading="lazy">
+        </figure>
 
-  <div class="exp-card">
-    <h3>Assistant</h3>
-    <span>2024 - Presente</span>
-    <p>Gestión de infraestructura tecnológica y procesos internos.</p>
-  </div>
+        <article class="about-content">
+          <p class="section-label">Sobre mí</p>
+          <h2>Soluciones tecnológicas reales para operaciones empresariales</h2>
+          <p>
+            Soy especialista en desarrollo web, redes y servidores. Diseño e implemento soluciones para empresas que
+            necesitan optimizar procesos, trazabilidad logística y presencia digital profesional.
+          </p>
+          <p>
+            Mi enfoque combina estrategia técnica con ejecución: desde la infraestructura hasta el producto final,
+            garantizando rendimiento, seguridad y escalabilidad.
+          </p>
 
-  <div class="exp-card">
-    <h3>Tech Assistant</h3>
-    <span>2024</span>
-    <p>Mantenimiento de sistemas y soporte técnico.</p>
-  </div>
-</section>
+          <div class="skill-cards">
+            <article class="glass-card mini-card">
+              <h3>Networking</h3>
+              <p>Diseño de redes confiables, segmentación y continuidad operativa.</p>
+            </article>
+            <article class="glass-card mini-card">
+              <h3>Servers</h3>
+              <p>Administración de servidores y despliegues orientados a negocio.</p>
+            </article>
+            <article class="glass-card mini-card">
+              <h3>Development</h3>
+              <p>Aplicaciones web modernas con foco en experiencia y resultados.</p>
+            </article>
+          </div>
+        </article>
+      </div>
+    </section>
 
-<!-- PROYECTOS -->
-<section class="projects">
-  <h2>Casos de Éxito</h2>
+    <section class="section reveal" id="experience">
+      <div class="container">
+        <p class="section-label">Experiencia</p>
+        <h2>Trayectoria enfocada en impacto técnico y operativo</h2>
 
-  <div class="project-grid">
-    <div class="project">
-      <h3>CargaNet</h3>
-      <p>Sistema logístico</p>
-    </div>
+        <div class="timeline">
+          <article class="timeline-item glass-card">
+            <span class="timeline-date">2024 - Actualidad</span>
+            <h3>Ingeniero de Sistemas & Desarrollador Web</h3>
+            <p>
+              Desarrollo de soluciones empresariales para logística, gestión y presencia digital. Implementación de
+              módulos de control, estados operativos y trazabilidad.
+            </p>
+          </article>
+          <article class="timeline-item glass-card">
+            <span class="timeline-date">2023 - 2024</span>
+            <h3>Especialista en Soporte e Infraestructura</h3>
+            <p>
+              Administración de entornos técnicos, soporte integral y mejoras de estabilidad para operaciones críticas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    <div class="project">
-      <h3>BautistaGarcia-web</h3>
-      <p>Página profesional médica</p>
-    </div>
+    <section class="section reveal" id="projects">
+      <div class="container">
+        <p class="section-label">Proyectos</p>
+        <h2>Implementaciones clave</h2>
 
-    <div class="project">
-      <h3>gr-glam-salon-web</h3>
-      <p>Web para salón de belleza</p>
-    </div>
-  </div>
-</section>
+        <div class="project-grid">
+          <article class="project-card glass-card">
+            <img src="assets/img/unnamed.png" alt="Sistema de gestión para transporte" loading="lazy">
+            <div class="project-content">
+              <h3>Sistema de gestión para empresa de transporte</h3>
+              <p>
+                ERP logístico funcional con control de clientes, estados (almacén y tránsito), usuarios y trazabilidad
+                completa de operaciones.
+              </p>
+              <div class="tags">
+                <span>ERP</span><span>Logística</span><span>Trazabilidad</span>
+              </div>
+              <div class="project-actions">
+                <a href="#" class="btn btn-secondary">Ver demo</a>
+                <a href="#" class="btn btn-ghost">Ver GitHub</a>
+              </div>
+            </div>
+          </article>
 
-<!-- STACK -->
-<section class="stack">
-  <h2>Stack Tecnológico</h2>
+          <article class="project-card glass-card">
+            <img src="assets/img/unnamed (1).png" alt="Sitio web profesional para doctor" loading="lazy">
+            <div class="project-content">
+              <h3>BautistaGarcia-web</h3>
+              <p>Sitio web profesional para servicios médicos, orientado a confianza, conversión y presencia de marca.</p>
+              <div class="tags">
+                <span>HTML</span><span>CSS</span><span>JavaScript</span>
+              </div>
+              <div class="project-actions">
+                <a href="#" class="btn btn-secondary">Ver demo</a>
+                <a href="#" class="btn btn-ghost">Ver GitHub</a>
+              </div>
+            </div>
+          </article>
 
-  <div class="stack-grid">
-    <div>HTML</div>
-    <div>CSS</div>
-    <div>JS</div>
-    <div>Python</div>
-    <div>Java</div>
-    <div>SQL Server</div>
-    <div>Windows Server</div>
-  </div>
-</section>
+          <article class="project-card glass-card">
+            <img src="assets/img/unnamed (2).png" alt="Sitio web para salón de belleza" loading="lazy">
+            <div class="project-content">
+              <h3>gr-glam-salon-web</h3>
+              <p>Experiencia web elegante para salón de belleza con foco visual premium y contacto directo con clientes.</p>
+              <div class="tags">
+                <span>UI/UX</span><span>Responsive</span><span>Branding</span>
+              </div>
+              <div class="project-actions">
+                <a href="#" class="btn btn-secondary">Ver demo</a>
+                <a href="#" class="btn btn-ghost">Ver GitHub</a>
+              </div>
+            </div>
+          </article>
 
-<!-- CTA -->
-<section class="cta">
-  <h2>¿Quieres llevar tu negocio al siguiente nivel?</h2>
-  <p>Contáctame y desarrollamos tu solución a medida</p>
+          <article class="project-card glass-card">
+            <img src="assets/img/unnamed.png" alt="Plataforma logística CargaNet" loading="lazy">
+            <div class="project-content">
+              <h3>CargaNet</h3>
+              <p>Plataforma logística para seguimiento operativo y gestión eficiente de flujo de carga empresarial.</p>
+              <div class="tags">
+                <span>Plataforma</span><span>Logística</span><span>Web App</span>
+              </div>
+              <div class="project-actions">
+                <a href="#" class="btn btn-secondary">Ver demo</a>
+                <a href="#" class="btn btn-ghost">Ver GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <div class="buttons">
-    <button class="btn whatsapp">WhatsApp</button>
-    <button class="btn email">Email</button>
-    <button class="btn github">GitHub</button>
-  </div>
-</section>
+    <section class="section reveal" id="stack">
+      <div class="container">
+        <p class="section-label">Stack Tecnológico</p>
+        <h2>Tecnologías con las que construyo soluciones</h2>
 
+        <div class="stack-grid">
+          <div class="stack-item glass-card"><span>🌐</span>HTML</div>
+          <div class="stack-item glass-card"><span>🎨</span>CSS</div>
+          <div class="stack-item glass-card"><span>⚡</span>JavaScript</div>
+          <div class="stack-item glass-card"><span>🐍</span>Python</div>
+          <div class="stack-item glass-card"><span>☕</span>Java</div>
+          <div class="stack-item glass-card"><span>🗄️</span>SQL Server</div>
+          <div class="stack-item glass-card"><span>🖥️</span>Windows Server</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="certifications">
+      <div class="container">
+        <p class="section-label">Certificaciones</p>
+        <h2>Formación continua orientada a estándares globales</h2>
+
+        <div class="cert-grid">
+          <article class="glass-card cert-item"><h3>AWS</h3><p>Cloud fundamentals y arquitectura orientada a escalabilidad.</p></article>
+          <article class="glass-card cert-item"><h3>CCNA</h3><p>Redes, routing y switching para entornos corporativos.</p></article>
+          <article class="glass-card cert-item"><h3>Linux</h3><p>Administración de sistemas y operación segura de servidores.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="contact">
+      <div class="container final-cta glass-card">
+        <p class="section-label">Colaboración</p>
+        <h2>¿Quieres llevar tu negocio al siguiente nivel con tecnología?</h2>
+        <p>Construyamos una solución robusta, elegante y enfocada en resultados medibles.</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://wa.me/51999999999" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="btn btn-secondary" href="mailto:johann@example.com">Email</a>
+          <a class="btn btn-ghost" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Johann Sebastian Guevara · Lima, Perú</p>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
