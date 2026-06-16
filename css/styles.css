@@ -333,6 +333,21 @@ p {
   margin-bottom: 0.5rem;
 }
 
+.project-features {
+  margin: 0.85rem 0 0;
+  padding-left: 1.05rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.project-features li {
+  margin-bottom: 0.38rem;
+}
+
+.project-features li::marker {
+  color: var(--primary);
+}
+
 .tags {
   margin: 1rem 0;
   display: flex;
