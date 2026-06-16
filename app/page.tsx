@@ -128,7 +128,7 @@ export default function Home() {
           <div className="container about-grid">
             <figure className="about-image">
               <img 
-                src="/profile.jpg" 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg" 
                 alt="Foto profesional de Johann Sebastian Guevara Elias, estudiante de Ingeniería de Sistemas" 
                 loading="lazy" 
               />
@@ -218,112 +218,8 @@ export default function Home() {
               <article className="project-card glass-card">
                 <div className="project-image">
                   <img 
-                    src="/project-1.jpg" 
-                    alt="Sistema web de gestión de soporte técnico y hardware empresarial con panel administrativo"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>Hardware Empresarial & Soporte Técnico</h3>
-                  <p>
-                    Plataforma web completa para empresa de reparación técnica. Los clientes crean cuenta, registran 
-                    problemas de equipos con fotos y descripción. Panel interno para administrador y operador con gestión 
-                    de casos, control de diagnósticos y trazabilidad del servicio.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Registro de clientes con autenticación y carga de incidencias con fotografías</li>
-                    <li>Paneles internos diferenciados: administrador y operador con permisos granulares</li>
-                    <li>Control de diagnósticos, estados, evidencias y trazabilidad completa del servicio</li>
-                    <li>Base de datos relacional con reportes operativos</li>
-                  </ul>
-                  <div className="project-meta">
-                    <p><strong>Acceso demo:</strong></p>
-                    <p>Admin: <span>admin</span> / <span>admin123</span></p>
-                    <p>Operador: <span>operador</span> / <span>operador123</span></p>
-                  </div>
-                  <div className="tags">
-                    <span>Soporte Técnico</span>
-                    <span>Gestión de Tickets</span>
-                    <span>Panel Administrativo</span>
-                    <span>Responsive</span>
-                    <span>Base de Datos</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://solucion-pe-xi.vercel.app/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="/project-2.jpg" 
-                    alt="Sitio web profesional para servicios médicos con diseño moderno"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>BautistaGarcia-web</h3>
-                  <p>
-                    Sitio web profesional para servicios médicos, diseñado para transmitir confianza, 
-                    generar conversiones y consolidar presencia de marca online. Enfoque en UX y conversión.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Diseño limpio y profesional orientado a confianza</li>
-                    <li>Responsive, optimizado para mobile y desktop</li>
-                    <li>Contacto directo con pacientes</li>
-                  </ul>
-                  <div className="tags">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Servicios Médicos</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://LifeSys.github.io/BautistaGarcia-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="/project-3.jpg" 
-                    alt="Sitio web elegante para salón de belleza con diseño premium"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>GR Glam Salon Web</h3>
-                  <p>
-                    Experiencia web elegante y sofisticada para salón de belleza. Foco visual premium, 
-                    presentación de servicios y contacto directo con clientes potenciales.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Diseño premium y elegante</li>
-                    <li>Responsive y optimizado para conversión</li>
-                    <li>Branding profesional</li>
-                  </ul>
-                  <div className="tags">
-                    <span>UI/UX</span>
-                    <span>Responsive</span>
-                    <span>Branding</span>
-                    <span>HTML/CSS</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://LifeSys.github.io/gr-glam-salon-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="/project-4.jpg" 
-                    alt="Plataforma logística para seguimiento de carga y operaciones"
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OeHONnYRBwbhs8bY8XLC87d5podSBq.png" 
+                    alt="CargaNet - Plataforma logística para seguimiento de carga y operaciones"
                     loading="lazy"
                   />
                 </div>
@@ -346,6 +242,107 @@ export default function Home() {
                   </div>
                   <div className="project-actions">
                     <a href="https://LifeSys.github.io/CargaNet/index.html" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
+                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  </div>
+                </div>
+              </article>
+
+              <article className="project-card glass-card">
+                <div className="project-image">
+                  <img 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6T4D1ZEQJ88YpKyG2cth8kkvh8rSgu.png" 
+                    alt="SOLUCION.PE - Hardware Empresarial y Soporte Técnico"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="project-content">
+                  <h3>SOLUCION.PE - Hardware Empresarial & Soporte</h3>
+                  <p>
+                    Plataforma B2B completa para empresa de hardware y soporte técnico. Distribuidora con catálogo 
+                    de productos de alta gama, servicios especializados, gestión de clientes empresariales y soporte técnico integrado.
+                  </p>
+                  <ul className="project-highlights">
+                    <li>Catálogo de 10+ productos de hardware de gama alta</li>
+                    <li>Cartera de 200+ clientes empresariales</li>
+                    <li>500+ reparaciones anuales con 99% satisfacción</li>
+                    <li>Despacho 24-48h e importación directa</li>
+                  </ul>
+                  <div className="tags">
+                    <span>Plataforma B2B</span>
+                    <span>Hardware</span>
+                    <span>Soporte Técnico</span>
+                    <span>E-commerce</span>
+                  </div>
+                  <div className="project-actions">
+                    <a href="https://solucion-pe-xi.vercel.app/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
+                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  </div>
+                </div>
+              </article>
+
+              <article className="project-card glass-card">
+                <div className="project-image">
+                  <img 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-4R4f1owDH7CyFWzlww9P01uXIWiIai.png" 
+                    alt="Dr. Félix Bautista - Cirujano especializado en cirugía general y oncológica"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="project-content">
+                  <h3>BautistaGarcia-web</h3>
+                  <p>
+                    Sitio web profesional para servicios médicos quirúrgicos. Diseñado para cirujano con especialidades 
+                    en cirugía general y oncológica. Transmite confianza, credibilidad profesional y genera contacto directo 
+                    con pacientes en Lima.
+                  </p>
+                  <ul className="project-highlights">
+                    <li>Diseño limpio y profesional orientado a confianza médica</li>
+                    <li>Presentación clara de credenciales y especialidades</li>
+                    <li>Responsive, optimizado para mobile y desktop</li>
+                    <li>Sistema de agenda y contacto directo con pacientes</li>
+                  </ul>
+                  <div className="tags">
+                    <span>HTML/CSS</span>
+                    <span>Servicios Médicos</span>
+                    <span>Responsive</span>
+                    <span>Professional</span>
+                  </div>
+                  <div className="project-actions">
+                    <a href="https://LifeSys.github.io/BautistaGarcia-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
+                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  </div>
+                </div>
+              </article>
+
+              <article className="project-card glass-card">
+                <div className="project-image">
+                  <img 
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9NOya1Ad7627jPZP3OFM9AjwDmeQ3j.png" 
+                    alt="Glam Salón - Salón de belleza premium con experiencia de lujo"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="project-content">
+                  <h3>GR Glam Salon Web</h3>
+                  <p>
+                    Experiencia web elegante y sofisticada para salón de belleza premium. Diseño lujoso enfocado 
+                    en conversión, presentación de servicios exclusivos de coloración, styling y tratamientos capilares, 
+                    con sistema de reserva integrado.
+                  </p>
+                  <ul className="project-highlights">
+                    <li>Diseño premium y elegante con estética de lujo</li>
+                    <li>Galería de servicios: coloración, styling, tratamientos</li>
+                    <li>Sistema de reserva WhatsApp integrado</li>
+                    <li>Responsive y optimizado para conversión</li>
+                  </ul>
+                  <div className="tags">
+                    <span>UI/UX</span>
+                    <span>Belleza</span>
+                    <span>Premium</span>
+                    <span>Responsive</span>
+                  </div>
+                  <div className="project-actions">
+                    <a href="https://LifeSys.github.io/gr-glam-salon-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
                     <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
                   </div>
                 </div>
