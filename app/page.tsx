@@ -88,14 +88,14 @@ export default function Home() {
             <h1>Johann Sebastian Guevara</h1>
             <h2>Soluciones TI, soporte técnico e infraestructura web para operaciones empresariales</h2>
             <p className="hero-claim">
-              Estudiante de 9.° ciclo de Ingeniería de Sistemas con experiencia comprobada en 
+              Estudiante de 10.° ciclo de Ingeniería de Sistemas con experiencia comprobada en
               soporte técnico, documentación operativa, Windows Server 2022, redes LAN, administración 
               de bases de datos y desarrollo de soluciones web orientadas a gestión empresarial. 
               Listo para aportar valor en entornos corporativos.
             </p>
 
             <div className="hero-badges">
-              <span className="badge">9.° ciclo • Ingeniería de Sistemas</span>
+              <span className="badge">10.° ciclo • Ingeniería de Sistemas</span>
               <span className="badge">Redes y servidores</span>
               <span className="badge">Soporte TI</span>
               <span className="badge">Desarrollo web</span>
@@ -139,7 +139,7 @@ export default function Home() {
                 <p className="section-label">Sobre mí</p>
                 <h2>Profesional técnico con formación en sistemas, redes y desarrollo</h2>
                 <p>
-                  Soy estudiante del 9.° ciclo de Ingeniería de Sistemas Computacionales en la Universidad Privada 
+                  Soy estudiante del 10.° ciclo de Ingeniería de Sistemas Computacionales en la Universidad Privada
                   del Norte, con 4 años de formación integral en tecnología. Mi experiencia laboral se enfoca en 
                   soporte técnico de primer nivel, documentación operativa, mantenimiento preventivo y validación de sistemas 
                   en entornos corporativos.
@@ -200,7 +200,7 @@ export default function Home() {
                 <span className="timeline-date">2022 - ACTUALIDAD</span>
                 <h3>Estudiante de Ingeniería de Sistemas · Universidad Privada del Norte</h3>
                 <p>
-                  Formación integral en 9.° ciclo (de 10). Proyectos formativos destacados: Centro de datos con Windows Server 2022, 
+                  Formación integral en 10.° ciclo (de 10). Proyectos formativos destacados: Centro de datos con Windows Server 2022,
                   inventario empresarial con SQL Server, aplicación web para restaurantes con Spring Boot, MySQL y Bootstrap. 
                   Participación en laboratorios de redes, ciberseguridad e IoT.
                 </p>
