@@ -3,8 +3,7 @@ Mi Portafolio Web
 Este es mi portafolio personal, donde presento algunos de los proyectos y aplicaciones web que he desarrollado durante mi formación y experiencia en desarrollo web.
 
 Sitio Web
-
-[https://lifesys.github.io/portafolio-johann/](https://portafolio-johann.vercel.app/)
+https://portafolio-johann.vercel.app/
 
 Sobre el Proyecto
 
