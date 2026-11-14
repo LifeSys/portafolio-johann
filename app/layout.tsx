@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Johann Sebastian Guevara | Ingeniería de Sistemas, Redes y Desarrollo Web',
-  description: 'Portafolio profesional y CV de Johann Sebastian Guevara Elias: Ingeniería de Sistemas, redes, servidores, soporte técnico y desarrollo web en Lima, Perú.',
-  keywords: 'Ingeniería de Sistemas, Redes, Servidores, Soporte Técnico, Desarrollo Web, SQL Server, Windows Server, Portafolio',
+  title: 'Johann Sebastian Guevara | Desarrollo Full Stack, Sistemas y Soporte TI',
+  description: 'Portafolio de Johann Sebastian Guevara Elias, Ingeniería de Sistemas (UPN): sistemas POS, plataformas SaaS, agentes con IA, sitios web para clientes y soporte TI en Lima, Perú.',
+  keywords: 'Ingeniería de Sistemas, Desarrollo Full Stack, Next.js, React, TypeScript, PostgreSQL, Python, Soporte TI, Windows Server, Portafolio, Lima',
   authors: [{ name: 'Johann Sebastian Guevara Elias' }],
 }
 

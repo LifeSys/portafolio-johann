@@ -1,34 +1,124 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import {
+  CATEGORIAS,
+  CERTIFICACIONES,
+  CONTACTO,
+  EXPERIENCIA,
+  PROYECTOS,
+  STACK,
+  type Categoria,
+  type Proyecto,
+} from './data'
+
+const NAV = [
+  { href: '#about', label: 'Sobre mí' },
+  { href: '#projects', label: 'Proyectos' },
+  { href: '#experience', label: 'Experiencia' },
+  { href: '#stack', label: 'Stack' },
+  { href: '#certifications', label: 'Certificaciones' },
+  { href: '#contact', label: 'Contacto' },
+]
+
+function Tags({ items }: { items: string[] }) {
+  return (
+    <div className="tags">
+      {items.map((t) => (
+        <span key={t}>{t}</span>
+      ))}
+    </div>
+  )
+}
+
+function Enlaces({ p }: { p: Proyecto }) {
+  if (p.privado) {
+    return <p className="private-note">🔒 Actualmente privado · disponible para mostrar en entrevista</p>
+  }
+  return (
+    <div className="project-actions">
+      {p.demo && (
+        <a href={p.demo} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          Ver demo
+        </a>
+      )}
+      {p.repo && (
+        <a href={p.repo} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+          Código
+        </a>
+      )}
+    </div>
+  )
+}
+
+function Destacado({ p }: { p: Proyecto }) {
+  return (
+    <article className="project-card glass-card">
+      <div className="project-image">
+        {p.imagen && <img src={p.imagen} alt={`Captura de ${p.nombre}: ${p.tipo}`} loading="lazy" />}
+      </div>
+      <div className="project-content">
+        <p className="project-type">
+          {p.tipo} · {p.fecha}
+        </p>
+        <h3>{p.nombre}</h3>
+        <p>{p.descripcion}</p>
+        {p.puntos && (
+          <ul className="project-highlights">
+            {p.puntos.map((pt) => (
+              <li key={pt}>{pt}</li>
+            ))}
+          </ul>
+        )}
+        <Tags items={p.stack} />
+        <Enlaces p={p} />
+      </div>
+    </article>
+  )
+}
+
+function Tarjeta({ p }: { p: Proyecto }) {
+  const inicial = p.nombre.charAt(0)
+  return (
+    <article className={`mini-card${p.privado ? ' is-private' : ''}`}>
+      <div className="mini-media">
+        {p.imagen ? (
+          <img src={p.imagen} alt={`Captura de ${p.nombre}`} loading="lazy" />
+        ) : (
+          <div className="mini-placeholder" aria-hidden="true">
+            <span>{inicial}</span>
+          </div>
+        )}
+        {p.privado && <span className="private-badge">Privado</span>}
+      </div>
+      <div className="mini-body">
+        <p className="project-type">
+          {p.tipo} · {p.fecha}
+        </p>
+        <h3>{p.nombre}</h3>
+        <p className="mini-desc">{p.descripcion}</p>
+        {p.puntos && (
+          <ul className="project-highlights">
+            {p.puntos.map((pt) => (
+              <li key={pt}>{pt}</li>
+            ))}
+          </ul>
+        )}
+        <Tags items={p.stack} />
+        <Enlaces p={p} />
+      </div>
+    </article>
+  )
+}
 
 export default function Home() {
-  const [year, setYear] = useState(new Date().getFullYear())
+  const [year, setYear] = useState(2026)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [filtro, setFiltro] = useState<'todos' | Categoria>('todos')
 
   useEffect(() => {
     setYear(new Date().getFullYear())
-
-    // Menu mobile
-    const menuToggle = document.getElementById('menuToggle')
-    const mainMenu = document.getElementById('mainMenu')
-
-    if (menuToggle && mainMenu) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = mainMenu.classList.toggle('open')
-        menuToggle.setAttribute('aria-expanded', String(isOpen))
-      })
-
-      mainMenu.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          mainMenu.classList.remove('open')
-          menuToggle.setAttribute('aria-expanded', 'false')
-        })
-      })
-    }
-
-    // Reveal animations
-    const revealItems = document.querySelectorAll('.reveal')
-
+    const items = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -38,18 +128,22 @@ export default function Home() {
           }
         })
       },
-      {
-        threshold: 0.15,
-        rootMargin: '0px 0px -40px 0px'
-      }
+      // threshold 0: las secciones altas (como Proyectos en celular) nunca llegan a mostrar el 10 % en pantalla
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     )
-
-    revealItems.forEach((item) => observer.observe(item))
-
-    return () => {
-      observer.disconnect()
-    }
+    items.forEach((i) => observer.observe(i))
+    return () => observer.disconnect()
   }, [])
+
+  const visibles = useMemo(
+    () => PROYECTOS.filter((p) => filtro === 'todos' || p.categorias.includes(filtro)),
+    [filtro]
+  )
+  const destacados = visibles.filter((p) => p.destacado)
+  const publicos = visibles.filter((p) => !p.destacado && !p.privado)
+  const privados = visibles.filter((p) => p.privado)
+  const conteo = (id: 'todos' | Categoria) =>
+    id === 'todos' ? PROYECTOS.length : PROYECTOS.filter((p) => p.categorias.includes(id)).length
 
   return (
     <>
@@ -58,390 +152,236 @@ export default function Home() {
           JSG<span>.</span>
         </a>
 
-        <button 
-          className="menu-toggle" 
-          id="menuToggle" 
-          aria-expanded="false" 
+        <button
+          className="menu-toggle"
+          aria-expanded={menuOpen}
           aria-controls="mainMenu"
-          aria-label="Abrir menú de navegación"
+          aria-label={menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+          onClick={() => setMenuOpen((o) => !o)}
         >
           <span></span>
           <span></span>
           <span></span>
         </button>
 
-        <nav className="nav-links" id="mainMenu" aria-label="Navegación principal">
-          <a href="#about">Sobre mí</a>
-          <a href="#experience">Experiencia</a>
-          <a href="#projects">Proyectos</a>
-          <a href="#stack">Stack</a>
-          <a href="#certifications">Certificaciones</a>
-          <a href="#contact">Contacto</a>
-          <a href="https://wa.me/51906127991" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Contactar</a>
+        <nav className={`nav-links${menuOpen ? ' open' : ''}`} id="mainMenu" aria-label="Navegación principal">
+          {NAV.map((n) => (
+            <a key={n.href} href={n.href} onClick={() => setMenuOpen(false)}>
+              {n.label}
+            </a>
+          ))}
+          <a href={CONTACTO.whatsapp} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Contactar
+          </a>
         </nav>
       </header>
 
       <main>
         <section className="hero reveal" id="hero">
           <div className="container hero-content">
-            <p className="eyebrow">Ingeniería de sistemas • Soporte TI • Infraestructura web</p>
+            <p className="eyebrow">Ingeniería de Sistemas · Desarrollo Full Stack · Soporte TI</p>
             <h1>Johann Sebastian Guevara</h1>
-            <h2>Soluciones TI, soporte técnico e infraestructura web para operaciones empresariales</h2>
+            <h2>Construyo sistemas que resuelven problemas reales de negocio, desde el análisis hasta el despliegue.</h2>
             <p className="hero-claim">
-              Estudiante de 10.° ciclo de Ingeniería de Sistemas con experiencia comprobada en
-              soporte técnico, documentación operativa, Windows Server 2022, redes LAN, administración 
-              de bases de datos y desarrollo de soluciones web orientadas a gestión empresarial. 
-              Listo para aportar valor en entornos corporativos.
+              Estudiante de 10.º ciclo de Ingeniería de Sistemas Computacionales (UPN). He desarrollado un sistema POS
+              web y de escritorio listo para producción, plataformas SaaS, agentes de atención con IA y sitios web para
+              clientes, con base en redes, servidores y soporte técnico.
             </p>
 
             <div className="hero-badges">
-              <span className="badge">10.° ciclo • Ingeniería de Sistemas</span>
-              <span className="badge">Redes y servidores</span>
-              <span className="badge">Soporte TI</span>
-              <span className="badge">Desarrollo web</span>
+              <span className="badge">{PROYECTOS.length} proyectos</span>
+              <span className="badge">Next.js · React · TypeScript</span>
+              <span className="badge">Python · PostgreSQL</span>
+              <span className="badge">Windows Server · Redes</span>
             </div>
 
             <div className="cta-row">
-              <a href="#projects" className="btn btn-primary">Ver proyectos destacados</a>
-              <a href="https://wa.me/51906127991" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp</a>
-              <a href="#contact" className="btn btn-ghost">Más formas de contacto</a>
+              <a href="#projects" className="btn btn-primary">
+                Ver proyectos
+              </a>
+              <a href={CONTACTO.whatsapp} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                Escribir por WhatsApp
+              </a>
+              <a href={CONTACTO.linkedin} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
             </div>
 
-            <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: '600px' }}>
+            <dl className="hero-facts">
               <div>
-                <p style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Ubicación</p>
-                <p style={{ marginTop: '0.25rem', color: 'var(--text)' }}>Lima, Perú</p>
+                <dt>Ubicación</dt>
+                <dd>Jesús María, Lima</dd>
               </div>
               <div>
-                <p style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Teléfono</p>
-                <p style={{ marginTop: '0.25rem', color: 'var(--text)' }}>(+51) 906 127 991</p>
+                <dt>Teléfono</dt>
+                <dd>{CONTACTO.telefono}</dd>
               </div>
               <div>
-                <p style={{ color: 'var(--primary)', fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Email</p>
-                <a href="mailto:johannsebastian789@gmail.com" style={{ marginTop: '0.25rem', color: 'var(--text)', textDecoration: 'underline', display: 'block' }}>Mail aquí</a>
+                <dt>Email</dt>
+                <dd>
+                  <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>
+                </dd>
               </div>
-            </div>
+            </dl>
           </div>
         </section>
 
         <section className="section reveal" id="about">
           <div className="container about-grid">
             <figure className="about-image">
-              <img 
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg" 
-                alt="Foto profesional de Johann Sebastian Guevara Elias, estudiante de Ingeniería de Sistemas" 
-                loading="lazy" 
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg"
+                alt="Foto de Johann Sebastian Guevara Elias"
+                loading="lazy"
               />
             </figure>
 
             <article className="about-content">
               <div>
                 <p className="section-label">Sobre mí</p>
-                <h2>Profesional técnico con formación en sistemas, redes y desarrollo</h2>
+                <h2>Del problema del cliente a una solución desplegada</h2>
                 <p>
-                  Soy estudiante del 10.° ciclo de Ingeniería de Sistemas Computacionales en la Universidad Privada
-                  del Norte, con 4 años de formación integral en tecnología. Mi experiencia laboral se enfoca en 
-                  soporte técnico de primer nivel, documentación operativa, mantenimiento preventivo y validación de sistemas 
-                  en entornos corporativos.
+                  Me gusta entender bien lo que necesita un negocio antes de construir. Mi proyecto principal es
+                  LifeSystemSolution POS, un sistema de ventas, caja, cocina, inventario y reportes con versión web
+                  multisucursal y versión de escritorio, con conexión a facturación electrónica SUNAT.
                 </p>
                 <p style={{ marginTop: '1rem' }}>
-                  Integro bases de datos (SQL Server y MySQL), servicios de infraestructura (Windows Server 2022), 
-                  fundamentos de ciberseguridad e IoT para construir soluciones ordenadas, documentadas y útiles. 
-                  Mi objetivo es aportar en soporte técnico, administración de infraestructura y desarrollo de aplicaciones 
-                  web orientadas a gestión empresarial.
+                  Uso la inteligencia artificial como una herramienta más de trabajo, con criterio para decidir cuándo y
+                  cómo aplicarla. Complemento el desarrollo con experiencia en soporte técnico, Windows Server 2022, redes
+                  y documentación técnica.
                 </p>
               </div>
 
               <div className="value-cards">
                 <article className="value-card">
-                  <h3>Infraestructura TI</h3>
-                  <p>Windows Server 2022, Active Directory, DNS, DHCP, FTP, IIS y gestión de redes LAN empresariales.</p>
+                  <h3>Desarrollo full stack</h3>
+                  <p>Next.js, React, TypeScript, Laravel, Python y PostgreSQL para sistemas web y de escritorio.</p>
                 </article>
                 <article className="value-card">
-                  <h3>Soporte & documentación</h3>
-                  <p>Atención de incidencias, diagnóstico técnico, mantenimiento preventivo y documentación operativa estructurada.</p>
+                  <h3>IA y automatización</h3>
+                  <p>Agentes de atención por WhatsApp, modelos de machine learning y generación automática de documentos.</p>
                 </article>
                 <article className="value-card">
-                  <h3>Desarrollo web</h3>
-                  <p>HTML, CSS, JavaScript, Java, Spring Boot, MySQL, SQL Server y Bootstrap para aplicaciones web corporativas.</p>
+                  <h3>Infraestructura y soporte</h3>
+                  <p>Windows Server 2022, Active Directory, DNS, DHCP, redes LAN y soporte a usuarios.</p>
                 </article>
               </div>
             </article>
           </div>
         </section>
 
-        <section className="section reveal" id="experience">
+        <section className="section reveal" id="projects">
           <div className="container">
-            <p className="section-label">Trayectoria profesional</p>
-            <h2>Experiencia laboral y formación aplicada</h2>
+            <p className="section-label">Proyectos</p>
+            <h2>Lo que he construido</h2>
 
-            <div className="timeline">
-              <article className="timeline-item">
-                <span className="timeline-date">ENERO 2024 - ACTUALIDAD</span>
-                <h3>Asistente Administrativo Operativo · Grupo Luseta S.A.C.</h3>
-                <p>
-                  Gestión integral de documentación técnica, actas de reunión, informes operativos, SCTR, controles de ingreso, 
-                  coordinación con supervisores y clientes externos. Responsabilidades: estructuración de reportes, control de cotizaciones, 
-                  respaldos digitales organizados y coordinación formal de procesos administrativos.
-                </p>
-              </article>
-
-              <article className="timeline-item">
-                <span className="timeline-date">MARZO 2024 - JULIO 2024</span>
-                <h3>Auxiliar en Tecnología y Sistemas · Inversiones Gica y Asociados S.A.C.</h3>
-                <p>
-                  Soporte técnico de primer nivel a usuarios finales, registro y seguimiento de incidencias, mantenimiento preventivo de equipos, 
-                  respaldo de información crítica, validación básica de sistemas y bases de datos. Generación de reportes estructurados 
-                  del área de sistemas para supervisores.
-                </p>
-              </article>
-
-              <article className="timeline-item">
-                <span className="timeline-date">2022 - ACTUALIDAD</span>
-                <h3>Estudiante de Ingeniería de Sistemas · Universidad Privada del Norte</h3>
-                <p>
-                  Formación integral en 10.° ciclo (de 10). Proyectos formativos destacados: Centro de datos con Windows Server 2022,
-                  inventario empresarial con SQL Server, aplicación web para restaurantes con Spring Boot, MySQL y Bootstrap. 
-                  Participación en laboratorios de redes, ciberseguridad e IoT.
-                </p>
-              </article>
+            <div className="filter-bar" role="group" aria-label="Filtrar proyectos">
+              {CATEGORIAS.map((c) => (
+                <button
+                  key={c.id}
+                  className={`chip${filtro === c.id ? ' is-active' : ''}`}
+                  aria-pressed={filtro === c.id}
+                  onClick={() => setFiltro(c.id)}
+                >
+                  {c.label} <b>{conteo(c.id)}</b>
+                </button>
+              ))}
             </div>
+
+            {destacados.length > 0 && (
+              <>
+                <h3 className="group-title">Destacados</h3>
+                <div className="project-grid">
+                  {destacados.map((p) => (
+                    <Destacado key={p.nombre} p={p} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {publicos.length > 0 && (
+              <>
+                <h3 className="group-title">Más proyectos con demo o código</h3>
+                <div className="mini-grid">
+                  {publicos.map((p) => (
+                    <Tarjeta key={p.nombre} p={p} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {privados.length > 0 && (
+              <>
+                <h3 className="group-title">Proyectos actualmente privados</h3>
+                <p className="group-note">
+                  Sistemas para clientes, internos o académicos. El código no es público, pero puedo mostrarlos en una
+                  entrevista.
+                </p>
+                <div className="mini-grid">
+                  {privados.map((p) => (
+                    <Tarjeta key={p.nombre} p={p} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </section>
 
-        <section className="section reveal" id="projects">
+        <section className="section reveal" id="experience">
           <div className="container">
-            <p className="section-label">Proyectos destacados</p>
-            <h2>Implementaciones clave y soluciones entregadas</h2>
-
-            <div className="project-grid">
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-OeHONnYRBwbhs8bY8XLC87d5podSBq.png" 
-                    alt="CargaNet - Plataforma logística para seguimiento de carga y operaciones"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>CargaNet</h3>
-                  <p>
-                    Plataforma logística integral para seguimiento operativo en tiempo real, 
-                    gestión eficiente de flujo de carga y control de operaciones empresariales.
-                  </p>
+            <p className="section-label">Trayectoria</p>
+            <h2>Experiencia y formación</h2>
+            <div className="timeline">
+              {EXPERIENCIA.map((e) => (
+                <article className="timeline-item" key={e.puesto}>
+                  <span className="timeline-date">{e.fecha}</span>
+                  <h3>{e.puesto}</h3>
+                  <p className="timeline-place">{e.lugar}</p>
                   <ul className="project-highlights">
-                    <li>Seguimiento de carga en tiempo real</li>
-                    <li>Gestión de operaciones logísticas</li>
-                    <li>Reportes y analytics</li>
+                    {e.puntos.map((pt) => (
+                      <li key={pt}>{pt}</li>
+                    ))}
                   </ul>
-                  <div className="tags">
-                    <span>Plataforma</span>
-                    <span>Logística</span>
-                    <span>Web App</span>
-                    <span>Operaciones</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://LifeSys.github.io/CargaNet/index.html" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6T4D1ZEQJ88YpKyG2cth8kkvh8rSgu.png" 
-                    alt="SOLUCION.PE - Hardware Empresarial y Soporte Técnico"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>SOLUCION.PE - Hardware Empresarial & Soporte</h3>
-                  <p>
-                    Plataforma B2B completa para empresa de hardware y soporte técnico. Distribuidora con catálogo 
-                    de productos de alta gama, servicios especializados, gestión de clientes empresariales y soporte técnico integrado.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Catálogo de 10+ productos de hardware de gama alta</li>
-                    <li>Cartera de 200+ clientes empresariales</li>
-                    <li>500+ reparaciones anuales con 99% satisfacción</li>
-                    <li>Despacho 24-48h e importación directa</li>
-                  </ul>
-                  <div className="tags">
-                    <span>Plataforma B2B</span>
-                    <span>Hardware</span>
-                    <span>Soporte Técnico</span>
-                    <span>E-commerce</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://solucion-pe-xi.vercel.app/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-4R4f1owDH7CyFWzlww9P01uXIWiIai.png" 
-                    alt="Dr. Félix Bautista - Cirujano especializado en cirugía general y oncológica"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>BautistaGarcia-web</h3>
-                  <p>
-                    Sitio web profesional para servicios médicos quirúrgicos. Diseñado para cirujano con especialidades 
-                    en cirugía general y oncológica. Transmite confianza, credibilidad profesional y genera contacto directo 
-                    con pacientes en Lima.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Diseño limpio y profesional orientado a confianza médica</li>
-                    <li>Presentación clara de credenciales y especialidades</li>
-                    <li>Responsive, optimizado para mobile y desktop</li>
-                    <li>Sistema de agenda y contacto directo con pacientes</li>
-                  </ul>
-                  <div className="tags">
-                    <span>HTML/CSS</span>
-                    <span>Servicios Médicos</span>
-                    <span>Responsive</span>
-                    <span>Professional</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://LifeSys.github.io/BautistaGarcia-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="project-card glass-card">
-                <div className="project-image">
-                  <img 
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9NOya1Ad7627jPZP3OFM9AjwDmeQ3j.png" 
-                    alt="Glam Salón - Salón de belleza premium con experiencia de lujo"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="project-content">
-                  <h3>GR Glam Salon Web</h3>
-                  <p>
-                    Experiencia web elegante y sofisticada para salón de belleza premium. Diseño lujoso enfocado 
-                    en conversión, presentación de servicios exclusivos de coloración, styling y tratamientos capilares, 
-                    con sistema de reserva integrado.
-                  </p>
-                  <ul className="project-highlights">
-                    <li>Diseño premium y elegante con estética de lujo</li>
-                    <li>Galería de servicios: coloración, styling, tratamientos</li>
-                    <li>Sistema de reserva WhatsApp integrado</li>
-                    <li>Responsive y optimizado para conversión</li>
-                  </ul>
-                  <div className="tags">
-                    <span>UI/UX</span>
-                    <span>Belleza</span>
-                    <span>Premium</span>
-                    <span>Responsive</span>
-                  </div>
-                  <div className="project-actions">
-                    <a href="https://LifeSys.github.io/gr-glam-salon-web/" className="btn btn-secondary" target="_blank" rel="noopener noreferrer">Ver demo</a>
-                    <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  </div>
-                </div>
-              </article>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="section reveal" id="stack">
           <div className="container">
-            <p className="section-label">Stack Tecnológico</p>
-            <h2>Tecnologías con las que construyo soluciones</h2>
-
+            <p className="section-label">Stack</p>
+            <h2>Tecnologías con las que trabajo</h2>
             <div className="stack-section">
-              <div className="stack-category">
-                <p className="stack-category-title">Frontend</p>
-                <div className="stack-grid">
-                  <div className="stack-item">HTML 5</div>
-                  <div className="stack-item">CSS 3</div>
-                  <div className="stack-item">JavaScript (ES6+)</div>
-                  <div className="stack-item">React</div>
-                  <div className="stack-item">Next.js</div>
-                  <div className="stack-item">Bootstrap</div>
+              {STACK.map((s) => (
+                <div className="stack-category" key={s.titulo}>
+                  <p className="stack-category-title">{s.titulo}</p>
+                  <div className="stack-grid">
+                    {s.items.map((i) => (
+                      <div className="stack-item" key={i}>
+                        {i}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <div className="stack-category">
-                <p className="stack-category-title">Backend</p>
-                <div className="stack-grid">
-                  <div className="stack-item">Java</div>
-                  <div className="stack-item">Spring Boot</div>
-                  <div className="stack-item">Python</div>
-                  <div className="stack-item">C#</div>
-                </div>
-              </div>
-
-              <div className="stack-category">
-                <p className="stack-category-title">Bases de Datos</p>
-                <div className="stack-grid">
-                  <div className="stack-item">SQL Server</div>
-                  <div className="stack-item">MySQL</div>
-                  <div className="stack-item">Diseño relacional</div>
-                </div>
-              </div>
-
-              <div className="stack-category">
-                <p className="stack-category-title">Infraestructura & Sistemas</p>
-                <div className="stack-grid">
-                  <div className="stack-item">Windows Server 2022</div>
-                  <div className="stack-item">Active Directory</div>
-                  <div className="stack-item">DNS / DHCP</div>
-                  <div className="stack-item">IIS / FTP</div>
-                  <div className="stack-item">Redes LAN</div>
-                </div>
-              </div>
-
-              <div className="stack-category">
-                <p className="stack-category-title">Herramientas & Soporte</p>
-                <div className="stack-grid">
-                  <div className="stack-item">AnyDesk</div>
-                  <div className="stack-item">Git / GitHub</div>
-                  <div className="stack-item">Word Avanzado</div>
-                  <div className="stack-item">Excel Avanzado</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="section reveal" id="certifications">
           <div className="container">
-            <p className="section-label">Formación & Certificaciones</p>
-            <h2>Educación continua en estándares globales</h2>
-
+            <p className="section-label">Certificaciones</p>
+            <h2>Formación complementaria</h2>
             <div className="cert-grid">
-              <article className="cert-item">
-                <h3>AWS Academy Cloud Foundations</h3>
-                <p>Fundamentos cloud, arquitectura escalable y servicios AWS. Mar. 2025</p>
-              </article>
-              <article className="cert-item">
-                <h3>CCNA: Introducción a las Redes</h3>
-                <p>Redes, routing, switching y fundamentos LAN. Jun. 2025</p>
-              </article>
-              <article className="cert-item">
-                <h3>Linux Essentials</h3>
-                <p>Administración básica de sistemas Linux. Jul. 2025</p>
-              </article>
-              <article className="cert-item">
-                <h3>Introducción a IoT</h3>
-                <p>Fundamentos de Internet de las Cosas y dispositivos conectados. May. 2024</p>
-              </article>
-              <article className="cert-item">
-                <h3>Introducción a Ciberseguridad</h3>
-                <p>Fundamentos de seguridad cibernética, amenazas y defensas. May. 2022</p>
-              </article>
-              <article className="cert-item">
-                <h3>CLP: Advanced Programming in C</h3>
-                <p>Programación avanzada en C. Oct. 2023</p>
-              </article>
+              {CERTIFICACIONES.map((c) => (
+                <article className="cert-item" key={c.nombre}>
+                  <h3>{c.nombre}</h3>
+                  <p>
+                    {c.emisor} · {c.fecha}
+                  </p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -449,18 +389,25 @@ export default function Home() {
         <section className="section reveal" id="contact">
           <div className="container">
             <div className="final-cta glass-card">
-              <p className="section-label">Colaboración</p>
-              <h2>¿Buscas apoyo técnico o una solución web para tu negocio?</h2>
+              <p className="section-label">Contacto</p>
+              <h2>¿Conversamos?</h2>
               <p>
-                Estoy disponible para colaborar en soporte técnico, documentación operativa, gestión de redes y servidores, 
-                administración de bases de datos y desarrollo web. Disponible para referencias laborales a solicitud. 
-                Con entusiasmo por aportar valor a tus proyectos.
+                Estoy disponible para oportunidades en desarrollo web, soporte TI y sistemas, y para proyectos a medida.
+                Tengo disponibilidad inmediata.
               </p>
-
               <div className="cta-row" style={{ justifyContent: 'center' }}>
-                <a href="https://wa.me/51906127991" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
-                <a href="mailto:johannsebastian789@gmail.com" className="btn btn-secondary">Enviar Email</a>
-                <a href="https://github.com/LifeSys/" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+                <a href={CONTACTO.whatsapp} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+                <a href={`mailto:${CONTACTO.email}`} className="btn btn-secondary">
+                  Email
+                </a>
+                <a href={CONTACTO.linkedin} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
+                </a>
+                <a href={CONTACTO.github} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
               </div>
             </div>
           </div>
@@ -469,7 +416,6 @@ export default function Home() {
 
       <footer className="footer">
         <p>© {year} Johann Sebastian Guevara Elias · Jesús María, Lima, Perú</p>
-        <p style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>Soluciones TI • Soporte Técnico • Infraestructura Web</p>
       </footer>
     </>
   )
