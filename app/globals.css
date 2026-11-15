@@ -10,8 +10,8 @@
   --accent-ink: #14110a;
   --accent-hover: #d6b675;
 
-  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: var(--font-serif), Georgia, 'Times New Roman', serif;
+  --sans: var(--font-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --t-display: clamp(2.5rem, 5.6vw, 5.25rem);
   --t-h2: clamp(2rem, 3.2vw, 2.75rem);
@@ -670,24 +670,159 @@ h3 {
 /* Pie */
 
 .pie {
-  padding: 40px 0 32px;
-  background: var(--surface);
-}
-
-.pie-grid {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 8px 24px;
+  padding: 80px 0 40px;
+  background: #080e1a;
   color: var(--muted);
   font-size: var(--t-small);
 }
 
-.pie-grid p:first-child {
+.pie-columnas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+  gap: 48px 40px;
+}
+
+.pie h2 {
+  font-family: var(--sans);
+  font-size: var(--t-small);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.pie ul {
+  display: grid;
+  gap: 10px;
+}
+
+.pie a {
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.pie a:hover {
   color: var(--ink);
 }
 
-.pie-grid p:last-child {
-  text-align: right;
+.ls-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+
+.ls-sello {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #e1121b;
+  color: #fff;
+  font: 700 0.875rem / 1 var(--sans);
+}
+
+.ls-nombre {
+  display: grid;
+  font: 700 1rem / 1.05 var(--sans);
+}
+
+.ls-nombre small {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.ls-lema {
+  margin: 16px 0 10px;
+  color: #ff4d55;
+  font-weight: 600;
+}
+
+.pie-contacto li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  overflow-wrap: anywhere;
+}
+
+.pie svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pie-contacto svg {
+  color: #ff4d55;
+  margin-top: 2px;
+}
+
+.pie-redes {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pie-redes a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--ink);
+  transition: background-color 180ms ease;
+}
+
+.pie-redes a:hover {
+  background: #22314d;
+}
+
+.pie-legal {
+  display: grid;
+  gap: 8px;
+  margin-top: 56px;
+  padding-top: 28px;
+  font-size: 0.8125rem;
+  box-shadow: 0 -1px 0 var(--surface-2);
+}
+
+.pie-legal p:first-child {
+  color: var(--ink);
+}
+
+/* Páginas legales */
+
+.legal {
+  padding-top: 64px;
+  padding-bottom: 120px;
+  max-width: calc(760px + var(--margen) * 2);
+}
+
+.legal h1 {
+  font-size: var(--t-h2);
+}
+
+.legal-cuerpo {
+  margin-top: 40px;
+  display: grid;
+  gap: 16px;
+}
+
+.legal-cuerpo h2 {
+  font-size: var(--t-h3);
+  margin-top: 24px;
+}
+
+.legal-cuerpo a {
+  text-underline-offset: 4px;
 }
 
 /* ---------- Aparición al hacer scroll ---------- */
@@ -773,6 +908,10 @@ h3 {
   }
 
   .galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pie-columnas {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -892,11 +1031,7 @@ h3 {
     gap: 6px;
   }
 
-  .pie-grid {
+  .pie-columnas {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .pie-grid p:last-child {
-    text-align: left;
   }
 }

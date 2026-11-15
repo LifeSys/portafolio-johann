@@ -14,8 +14,8 @@
     "url": "git+https://github.com/LifeSys/portafolio-johann.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "LifeSystem Solutions",
+  "license": "UNLICENSED",
   "type": "module",
   "bugs": {
     "url": "https://github.com/LifeSys/portafolio-johann/issues"

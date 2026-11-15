@@ -11,6 +11,7 @@ import {
   type Categoria,
   type Proyecto,
 } from './data'
+import Pie from './Pie'
 
 const FOTO =
   'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg'
@@ -125,13 +126,8 @@ function Fila({ p }: { p: Proyecto }) {
 }
 
 export default function Home() {
-  const [year, setYear] = useState(2026)
   const [menuOpen, setMenuOpen] = useState(false)
   const [filtro, setFiltro] = useState<'todos' | Categoria>('todos')
-
-  useEffect(() => {
-    setYear(new Date().getFullYear())
-  }, [])
 
   const visibles = useMemo(
     () => PROYECTOS.filter((p) => filtro === 'todos' || p.categorias.includes(filtro)),
@@ -413,13 +409,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="pie">
-        <div className="marco pie-grid">
-          <p>Johann Sebastian Guevara Elias</p>
-          <p>Ingeniería de Sistemas · Lima, Perú</p>
-          <p>© {year}</p>
-        </div>
-      </footer>
+      <Pie />
     </>
   )
 }
