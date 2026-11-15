@@ -1,6 +1,6 @@
 // Contenido del portafolio. Para agregar o editar algo, cambia solo este archivo.
 
-export type Categoria = 'sistemas' | 'web' | 'ia' | 'infra'
+export type Categoria = 'sistemas' | 'web' | 'auto' | 'infra'
 
 export type Proyecto = {
   nombre: string
@@ -22,7 +22,7 @@ export const CATEGORIAS: { id: 'todos' | Categoria; label: string }[] = [
   { id: 'todos', label: 'Todos' },
   { id: 'sistemas', label: 'Sistemas' },
   { id: 'web', label: 'Web' },
-  { id: 'ia', label: 'IA y automatización' },
+  { id: 'auto', label: 'Automatización' },
   { id: 'infra', label: 'Infraestructura' },
 ]
 
@@ -47,16 +47,16 @@ export const PROYECTOS: Proyecto[] = [
   },
   {
     nombre: 'OrientaIA',
-    tipo: 'Test vocacional con machine learning',
+    tipo: 'Sistema de orientación vocacional',
     descripcion:
-      'Sistema web de orientación vocacional basado en el instrumento CHASIDE (98 ítems, 7 áreas) para escolares, universitarios y profesionales, con un modelo de machine learning que explica el resultado.',
+      'Sistema web de orientación vocacional basado en el instrumento CHASIDE (98 ítems, 7 áreas) para escolares, universitarios y profesionales, con un informe de resultados por áreas.',
     puntos: [
       'Flujos separados por tipo de participante',
       'Numeración automática y modo sin conexión',
       'Panel de administración con exportación a CSV, sin datos personales',
     ],
     stack: ['JavaScript', 'Python', 'Jupyter', 'Firebase', 'GitHub Pages'],
-    categorias: ['ia', 'web'],
+    categorias: ['web', 'sistemas'],
     fecha: '2026',
     imagen: '/projects/orientaia.webp',
     demo: 'https://lifesys.github.io/TES-VOCACIONAL/escolar.html?aula=DEMO',
@@ -166,7 +166,7 @@ export const PROYECTOS: Proyecto[] = [
     tipo: 'Herramienta para Windows',
     descripcion: 'Ordena fotos y videos por su fecha real de captura, detecta duplicados y nunca borra archivos.',
     stack: ['Python'],
-    categorias: ['ia', 'sistemas'],
+    categorias: ['auto', 'sistemas'],
     fecha: '2026',
     repo: 'https://github.com/LifeSystemSolution/organizador-fotos',
   },
@@ -198,11 +198,11 @@ export const PROYECTOS: Proyecto[] = [
     privado: true,
   },
   {
-    nombre: 'Agente de IA para WhatsApp',
+    nombre: 'Asistente de atención para WhatsApp',
     tipo: 'Atención automatizada de clientes',
     descripcion: 'Asistente que responde a los clientes de un negocio por WhatsApp, registra las conversaciones y tiene un panel web de administración.',
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'IA'],
-    categorias: ['ia', 'sistemas'],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'WhatsApp API'],
+    categorias: ['auto', 'sistemas'],
     fecha: '2026',
     privado: true,
   },
@@ -212,7 +212,7 @@ export const PROYECTOS: Proyecto[] = [
     descripcion:
       'Sigue los expedientes de obra desde la cotización hasta el cobro y genera cotizaciones, informes, actas, valorizaciones y cartas de cobranza en Word/PDF, con cálculo de IGV y respaldos programados.',
     stack: ['Python', 'SQLite', 'python-docx'],
-    categorias: ['sistemas', 'ia'],
+    categorias: ['sistemas', 'auto'],
     fecha: '2026',
     privado: true,
   },
@@ -227,11 +227,11 @@ export const PROYECTOS: Proyecto[] = [
     privado: true,
   },
   {
-    nombre: 'VIP Barbershop AI',
-    tipo: 'App para barberías con IA',
-    descripcion: 'Aplicación con análisis de imagen y generación de estilos mediante IA para recomendar cortes.',
-    stack: ['Next.js', 'TypeScript', 'Firebase', 'IA'],
-    categorias: ['ia', 'web'],
+    nombre: 'VIP Barbershop',
+    tipo: 'App para barberías',
+    descripcion: 'Aplicación que recomienda cortes y estilos a partir de una foto del cliente.',
+    stack: ['Next.js', 'TypeScript', 'Firebase'],
+    categorias: ['web'],
     fecha: '2026',
     privado: true,
   },

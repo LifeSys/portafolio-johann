@@ -12,102 +12,115 @@ import {
   type Proyecto,
 } from './data'
 
+const FOTO =
+  'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg'
+
 const NAV = [
-  { href: '#about', label: 'Sobre mí' },
-  { href: '#projects', label: 'Proyectos' },
-  { href: '#experience', label: 'Experiencia' },
-  { href: '#stack', label: 'Stack' },
-  { href: '#certifications', label: 'Certificaciones' },
-  { href: '#contact', label: 'Contacto' },
+  { href: '#perfil', label: 'Perfil' },
+  { href: '#proyectos', label: 'Proyectos' },
+  { href: '#experiencia', label: 'Experiencia' },
+  { href: '#competencias', label: 'Competencias' },
+  { href: '#contacto', label: 'Contacto' },
 ]
 
-function Tags({ items }: { items: string[] }) {
-  return (
-    <div className="tags">
-      {items.map((t) => (
-        <span key={t}>{t}</span>
-      ))}
-    </div>
-  )
-}
+const AREAS = [
+  {
+    titulo: 'Desarrollo de software',
+    texto: 'Sistemas web y de escritorio con Next.js, React, TypeScript, Laravel, Python y PostgreSQL, desde el análisis hasta el despliegue.',
+  },
+  {
+    titulo: 'Automatización de procesos',
+    texto: 'Herramientas internas que generan documentos, ordenan información y atienden clientes por WhatsApp para ahorrar horas de trabajo manual.',
+  },
+  {
+    titulo: 'Infraestructura y soporte',
+    texto: 'Windows Server 2022, Active Directory, DNS, DHCP, redes LAN, mantenimiento de equipos y soporte a usuarios.',
+  },
+]
 
 function Enlaces({ p }: { p: Proyecto }) {
-  if (p.privado) {
-    return <p className="private-note">🔒 Actualmente privado · disponible para mostrar en entrevista</p>
-  }
+  if (p.privado) return <p className="nota-privada">Privado · se presenta en entrevista</p>
   return (
-    <div className="project-actions">
+    <div className="enlaces">
       {p.demo && (
-        <a href={p.demo} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+        <a href={p.demo} className="btn btn-primario" target="_blank" rel="noopener noreferrer">
           Ver demo
         </a>
       )}
       {p.repo && (
-        <a href={p.repo} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-          Código
+        <a href={p.repo} className="enlace" target="_blank" rel="noopener noreferrer">
+          Ver código
         </a>
       )}
     </div>
   )
 }
 
-function Destacado({ p }: { p: Proyecto }) {
+function Destacado({ p, invertido }: { p: Proyecto; invertido: boolean }) {
   return (
-    <article className="project-card glass-card">
-      <div className="project-image">
-        {p.imagen && <img src={p.imagen} alt={`Captura de ${p.nombre}: ${p.tipo}`} loading="lazy" />}
-      </div>
-      <div className="project-content">
-        <p className="project-type">
+    <article className={`destacado reveal${invertido ? ' invertido' : ''}`}>
+      <a className="destacado-media" href={p.demo ?? p.repo} target="_blank" rel="noopener noreferrer" tabIndex={-1}>
+        {p.imagen && (
+          <img src={p.imagen} alt={`Pantalla de ${p.nombre}`} width={1200} height={750} loading="lazy" />
+        )}
+      </a>
+      <div className="destacado-texto">
+        <h3>{p.nombre}</h3>
+        <p className="meta">
           {p.tipo} · {p.fecha}
         </p>
-        <h3>{p.nombre}</h3>
         <p>{p.descripcion}</p>
         {p.puntos && (
-          <ul className="project-highlights">
+          <ul className="puntos">
             {p.puntos.map((pt) => (
               <li key={pt}>{pt}</li>
             ))}
           </ul>
         )}
-        <Tags items={p.stack} />
+        <p className="stack-linea">{p.stack.join(' · ')}</p>
         <Enlaces p={p} />
       </div>
     </article>
   )
 }
 
-function Tarjeta({ p }: { p: Proyecto }) {
-  const inicial = p.nombre.charAt(0)
+function Galeria({ p }: { p: Proyecto }) {
   return (
-    <article className={`mini-card${p.privado ? ' is-private' : ''}`}>
-      <div className="mini-media">
-        {p.imagen ? (
-          <img src={p.imagen} alt={`Captura de ${p.nombre}`} loading="lazy" />
-        ) : (
-          <div className="mini-placeholder" aria-hidden="true">
-            <span>{inicial}</span>
-          </div>
-        )}
-        {p.privado && <span className="private-badge">Privado</span>}
-      </div>
-      <div className="mini-body">
-        <p className="project-type">
-          {p.tipo} · {p.fecha}
-        </p>
-        <h3>{p.nombre}</h3>
-        <p className="mini-desc">{p.descripcion}</p>
-        {p.puntos && (
-          <ul className="project-highlights">
-            {p.puntos.map((pt) => (
-              <li key={pt}>{pt}</li>
-            ))}
-          </ul>
-        )}
-        <Tags items={p.stack} />
-        <Enlaces p={p} />
-      </div>
+    <article className="obra reveal">
+      <a className="obra-media" href={p.demo ?? p.repo} target="_blank" rel="noopener noreferrer">
+        <img src={p.imagen} alt={`Pantalla de ${p.nombre}`} width={1200} height={750} loading="lazy" />
+      </a>
+      <h3>{p.nombre}</h3>
+      <p className="meta">
+        {p.tipo} · {p.fecha}
+      </p>
+      <p className="obra-desc">{p.descripcion}</p>
+      <p className="stack-linea">{p.stack.join(' · ')}</p>
+      <Enlaces p={p} />
     </article>
+  )
+}
+
+function Fila({ p }: { p: Proyecto }) {
+  return (
+    <li className="fila">
+      <div className="fila-nombre">
+        <h3>{p.nombre}</h3>
+        <p>{p.descripcion}</p>
+        <p className="stack-linea">{p.stack.join(' · ')}</p>
+      </div>
+      <p className="fila-tipo">{p.tipo}</p>
+      <p className="fila-fecha">{p.fecha}</p>
+      <div className="fila-estado">
+        {p.privado ? (
+          <span>Privado · en entrevista</span>
+        ) : (
+          <a href={p.repo ?? p.demo} target="_blank" rel="noopener noreferrer" className="enlace">
+            Ver código
+          </a>
+        )}
+      </div>
+    </li>
   )
 }
 
@@ -118,7 +131,16 @@ export default function Home() {
 
   useEffect(() => {
     setYear(new Date().getFullYear())
-    const items = document.querySelectorAll('.reveal')
+  }, [])
+
+  const visibles = useMemo(
+    () => PROYECTOS.filter((p) => filtro === 'todos' || p.categorias.includes(filtro)),
+    [filtro]
+  )
+
+  // Se vuelve a observar cada vez que cambia el filtro, porque aparecen elementos nuevos
+  useEffect(() => {
+    const items = document.querySelectorAll('.reveal:not(.is-visible)')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -128,294 +150,275 @@ export default function Home() {
           }
         })
       },
-      // threshold 0: las secciones altas (como Proyectos en celular) nunca llegan a mostrar el 10 % en pantalla
       { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     )
     items.forEach((i) => observer.observe(i))
     return () => observer.disconnect()
-  }, [])
+  }, [filtro])
 
-  const visibles = useMemo(
-    () => PROYECTOS.filter((p) => filtro === 'todos' || p.categorias.includes(filtro)),
-    [filtro]
-  )
   const destacados = visibles.filter((p) => p.destacado)
-  const publicos = visibles.filter((p) => !p.destacado && !p.privado)
-  const privados = visibles.filter((p) => p.privado)
+  const galeria = visibles.filter((p) => !p.destacado && !p.privado && p.imagen)
+  const registro = visibles.filter((p) => !p.destacado && (p.privado || !p.imagen))
   const conteo = (id: 'todos' | Categoria) =>
     id === 'todos' ? PROYECTOS.length : PROYECTOS.filter((p) => p.categorias.includes(id)).length
+  const publicos = PROYECTOS.filter((p) => !p.privado).length
 
   return (
     <>
-      <header className="navbar" id="top">
-        <a className="logo" href="#hero" aria-label="Johann Sebastian Guevara - Inicio">
-          JSG<span>.</span>
-        </a>
-
-        <button
-          className="menu-toggle"
-          aria-expanded={menuOpen}
-          aria-controls="mainMenu"
-          aria-label={menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav className={`nav-links${menuOpen ? ' open' : ''}`} id="mainMenu" aria-label="Navegación principal">
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href} onClick={() => setMenuOpen(false)}>
-              {n.label}
-            </a>
-          ))}
-          <a href={CONTACTO.whatsapp} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-            Contactar
+      <header className="barra">
+        <div className="marco barra-interior">
+          <a className="marca" href="#inicio">
+            Johann Guevara
           </a>
-        </nav>
+          <button
+            className="menu-boton"
+            aria-expanded={menuOpen}
+            aria-controls="menu"
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            {menuOpen ? 'Cerrar' : 'Menú'}
+          </button>
+          <nav className={`menu${menuOpen ? ' abierto' : ''}`} id="menu" aria-label="Navegación principal">
+            {NAV.map((n) => (
+              <a key={n.href} href={n.href} onClick={() => setMenuOpen(false)}>
+                {n.label}
+              </a>
+            ))}
+            <a href={CONTACTO.whatsapp} className="btn btn-primario" target="_blank" rel="noopener noreferrer">
+              Contactar
+            </a>
+          </nav>
+        </div>
       </header>
 
-      <main>
-        <section className="hero reveal" id="hero">
-          <div className="container hero-content">
-            <p className="eyebrow">Ingeniería de Sistemas · Desarrollo Full Stack · Soporte TI</p>
-            <h1>Johann Sebastian Guevara</h1>
-            <h2>Construyo sistemas que resuelven problemas reales de negocio, desde el análisis hasta el despliegue.</h2>
-            <p className="hero-claim">
-              Estudiante de 10.º ciclo de Ingeniería de Sistemas Computacionales (UPN). He desarrollado un sistema POS
-              web y de escritorio listo para producción, plataformas SaaS, agentes de atención con IA y sitios web para
-              clientes, con base en redes, servidores y soporte técnico.
-            </p>
+      <main id="inicio">
+        <section className="portada">
+          <div className="marco portada-grid">
+            <div className="portada-texto">
+              <h1>Johann Sebastian Guevara</h1>
+              <p className="cargo">Desarrollo de software y soporte TI</p>
+              <p className="bajada">
+                Diseño y construyo sistemas para negocios reales: puntos de venta, plataformas web y herramientas
+                internas, desde el análisis del proceso hasta el despliegue.
+              </p>
+              <div className="enlaces">
+                <a href="#proyectos" className="btn btn-primario">
+                  Ver proyectos
+                </a>
+                <a href={CONTACTO.linkedin} className="enlace" target="_blank" rel="noopener noreferrer">
+                  Perfil en LinkedIn
+                </a>
+              </div>
+              <dl className="cifras">
+                <div>
+                  <dt>{PROYECTOS.length}</dt>
+                  <dd>proyectos desarrollados</dd>
+                </div>
+                <div>
+                  <dt>{publicos}</dt>
+                  <dd>con demo o código público</dd>
+                </div>
+                <div>
+                  <dt>{CERTIFICACIONES.length}</dt>
+                  <dd>certificaciones Cisco y AWS</dd>
+                </div>
+              </dl>
+            </div>
+            <figure className="portada-foto">
+              <img src={FOTO} alt="Johann Sebastian Guevara Elias" width={800} height={1000} />
+            </figure>
+          </div>
+        </section>
 
-            <div className="hero-badges">
-              <span className="badge">{PROYECTOS.length} proyectos</span>
-              <span className="badge">Next.js · React · TypeScript</span>
-              <span className="badge">Python · PostgreSQL</span>
-              <span className="badge">Windows Server · Redes</span>
+        <section className="seccion" id="perfil">
+          <div className="marco perfil-grid">
+            <h2 className="reveal">Perfil profesional</h2>
+            <div className="perfil-texto reveal">
+              <p className="declaracion">
+                Estudiante de 10.º ciclo de Ingeniería de Sistemas Computacionales en la UPN. Me gusta entender bien lo
+                que necesita un negocio antes de escribir una línea de código.
+              </p>
+              <p>
+                Mi proyecto principal es LifeSystemSolution POS: ventas, caja, cocina, inventario y reportes, con una
+                versión web multisucursal y otra de escritorio que funciona sin internet. Está listo para producción, se
+                probó con pruebas de estrés y carga, y se conecta con la facturación electrónica de SUNAT.
+              </p>
+              <p>
+                Complemento el desarrollo con experiencia en soporte técnico, servidores, redes y documentación técnica,
+                lo que me permite acompañar un sistema desde la instalación hasta el uso diario.
+              </p>
+            </div>
+            <dl className="areas reveal">
+              {AREAS.map((a) => (
+                <div key={a.titulo}>
+                  <dt>{a.titulo}</dt>
+                  <dd>{a.texto}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section className="seccion seccion-alterna" id="proyectos">
+          <div className="marco">
+            <div className="cabecera">
+              <h2 className="reveal">Proyectos</h2>
+              <div className="filtros" role="group" aria-label="Filtrar proyectos">
+                {CATEGORIAS.map((c) => (
+                  <button
+                    key={c.id}
+                    className={`filtro${filtro === c.id ? ' activo' : ''}`}
+                    aria-pressed={filtro === c.id}
+                    onClick={() => setFiltro(c.id)}
+                  >
+                    {c.label} <span>{conteo(c.id)}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="cta-row">
-              <a href="#projects" className="btn btn-primary">
-                Ver proyectos
-              </a>
-              <a href={CONTACTO.whatsapp} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-                Escribir por WhatsApp
-              </a>
-              <a href={CONTACTO.linkedin} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-                LinkedIn
-              </a>
-            </div>
+            {destacados.length > 0 && (
+              <div className="destacados">
+                {destacados.map((p, i) => (
+                  <Destacado key={p.nombre} p={p} invertido={i % 2 === 1} />
+                ))}
+              </div>
+            )}
 
-            <dl className="hero-facts">
+            {galeria.length > 0 && (
+              <>
+                <h3 className="subtitulo">Sitios y demos para clientes</h3>
+                <div className="galeria">
+                  {galeria.map((p) => (
+                    <Galeria key={p.nombre} p={p} />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {registro.length > 0 && (
+              <>
+                <h3 className="subtitulo">Registro completo</h3>
+                <p className="subnota">
+                  Sistemas para clientes, internos y académicos. Los privados no tienen código público, pero puedo
+                  mostrarlos en una entrevista.
+                </p>
+                <ul className="registro">
+                  {registro.map((p) => (
+                    <Fila key={p.nombre} p={p} />
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section className="seccion" id="experiencia">
+          <div className="marco">
+            <h2 className="reveal">Experiencia y formación</h2>
+            <ol className="trayectoria">
+              {EXPERIENCIA.map((e) => (
+                <li key={e.puesto} className="reveal">
+                  <p className="trayectoria-fecha">{e.fecha}</p>
+                  <div>
+                    <h3>{e.puesto}</h3>
+                    <p className="meta">{e.lugar}</p>
+                    <ul className="puntos">
+                      {e.puntos.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="seccion seccion-alterna" id="competencias">
+          <div className="marco competencias-grid">
+            <div>
+              <h2 className="reveal">Competencias técnicas</h2>
+              <dl className="tecnologias reveal">
+                {STACK.map((s) => (
+                  <div key={s.titulo}>
+                    <dt>{s.titulo}</dt>
+                    <dd>{s.items.join(', ')}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <h2 className="reveal">Certificaciones</h2>
+              <ul className="certificados reveal">
+                {CERTIFICACIONES.map((c) => (
+                  <li key={c.nombre}>
+                    <div>
+                      <h3>{c.nombre}</h3>
+                      <p>{c.emisor}</p>
+                    </div>
+                    <span>{c.fecha}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="seccion contacto" id="contacto">
+          <div className="marco contacto-grid">
+            <div className="reveal">
+              <h2>Conversemos</h2>
+              <p className="declaracion">
+                Disponible de inmediato para puestos de desarrollo, soporte TI y sistemas, y para proyectos a medida.
+              </p>
+            </div>
+            <dl className="contacto-lista reveal">
               <div>
-                <dt>Ubicación</dt>
-                <dd>Jesús María, Lima</dd>
+                <dt>WhatsApp y teléfono</dt>
+                <dd>
+                  <a href={CONTACTO.whatsapp} target="_blank" rel="noopener noreferrer">
+                    {CONTACTO.telefono}
+                  </a>
+                </dd>
               </div>
               <div>
-                <dt>Teléfono</dt>
-                <dd>{CONTACTO.telefono}</dd>
-              </div>
-              <div>
-                <dt>Email</dt>
+                <dt>Correo</dt>
                 <dd>
                   <a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>LinkedIn</dt>
+                <dd>
+                  <a href={CONTACTO.linkedin} target="_blank" rel="noopener noreferrer">
+                    linkedin.com/in/johann-sg
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>Ubicación</dt>
+                <dd>Jesús María, Lima, Perú</dd>
+              </div>
+              <div>
+                <dt>GitHub</dt>
+                <dd>
+                  <a href={CONTACTO.github} target="_blank" rel="noopener noreferrer">
+                    github.com/LifeSys
+                  </a>
                 </dd>
               </div>
             </dl>
           </div>
         </section>
-
-        <section className="section reveal" id="about">
-          <div className="container about-grid">
-            <figure className="about-image">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/YO%20FORMAL-X533A7sFlqy6swAxwabe2QXLVMmWiK.jpg"
-                alt="Foto de Johann Sebastian Guevara Elias"
-                loading="lazy"
-              />
-            </figure>
-
-            <article className="about-content">
-              <div>
-                <p className="section-label">Sobre mí</p>
-                <h2>Del problema del cliente a una solución desplegada</h2>
-                <p>
-                  Me gusta entender bien lo que necesita un negocio antes de construir. Mi proyecto principal es
-                  LifeSystemSolution POS, un sistema de ventas, caja, cocina, inventario y reportes con versión web
-                  multisucursal y versión de escritorio, con conexión a facturación electrónica SUNAT.
-                </p>
-                <p style={{ marginTop: '1rem' }}>
-                  Uso la inteligencia artificial como una herramienta más de trabajo, con criterio para decidir cuándo y
-                  cómo aplicarla. Complemento el desarrollo con experiencia en soporte técnico, Windows Server 2022, redes
-                  y documentación técnica.
-                </p>
-              </div>
-
-              <div className="value-cards">
-                <article className="value-card">
-                  <h3>Desarrollo full stack</h3>
-                  <p>Next.js, React, TypeScript, Laravel, Python y PostgreSQL para sistemas web y de escritorio.</p>
-                </article>
-                <article className="value-card">
-                  <h3>IA y automatización</h3>
-                  <p>Agentes de atención por WhatsApp, modelos de machine learning y generación automática de documentos.</p>
-                </article>
-                <article className="value-card">
-                  <h3>Infraestructura y soporte</h3>
-                  <p>Windows Server 2022, Active Directory, DNS, DHCP, redes LAN y soporte a usuarios.</p>
-                </article>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section className="section reveal" id="projects">
-          <div className="container">
-            <p className="section-label">Proyectos</p>
-            <h2>Lo que he construido</h2>
-
-            <div className="filter-bar" role="group" aria-label="Filtrar proyectos">
-              {CATEGORIAS.map((c) => (
-                <button
-                  key={c.id}
-                  className={`chip${filtro === c.id ? ' is-active' : ''}`}
-                  aria-pressed={filtro === c.id}
-                  onClick={() => setFiltro(c.id)}
-                >
-                  {c.label} <b>{conteo(c.id)}</b>
-                </button>
-              ))}
-            </div>
-
-            {destacados.length > 0 && (
-              <>
-                <h3 className="group-title">Destacados</h3>
-                <div className="project-grid">
-                  {destacados.map((p) => (
-                    <Destacado key={p.nombre} p={p} />
-                  ))}
-                </div>
-              </>
-            )}
-
-            {publicos.length > 0 && (
-              <>
-                <h3 className="group-title">Más proyectos con demo o código</h3>
-                <div className="mini-grid">
-                  {publicos.map((p) => (
-                    <Tarjeta key={p.nombre} p={p} />
-                  ))}
-                </div>
-              </>
-            )}
-
-            {privados.length > 0 && (
-              <>
-                <h3 className="group-title">Proyectos actualmente privados</h3>
-                <p className="group-note">
-                  Sistemas para clientes, internos o académicos. El código no es público, pero puedo mostrarlos en una
-                  entrevista.
-                </p>
-                <div className="mini-grid">
-                  {privados.map((p) => (
-                    <Tarjeta key={p.nombre} p={p} />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </section>
-
-        <section className="section reveal" id="experience">
-          <div className="container">
-            <p className="section-label">Trayectoria</p>
-            <h2>Experiencia y formación</h2>
-            <div className="timeline">
-              {EXPERIENCIA.map((e) => (
-                <article className="timeline-item" key={e.puesto}>
-                  <span className="timeline-date">{e.fecha}</span>
-                  <h3>{e.puesto}</h3>
-                  <p className="timeline-place">{e.lugar}</p>
-                  <ul className="project-highlights">
-                    {e.puntos.map((pt) => (
-                      <li key={pt}>{pt}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section reveal" id="stack">
-          <div className="container">
-            <p className="section-label">Stack</p>
-            <h2>Tecnologías con las que trabajo</h2>
-            <div className="stack-section">
-              {STACK.map((s) => (
-                <div className="stack-category" key={s.titulo}>
-                  <p className="stack-category-title">{s.titulo}</p>
-                  <div className="stack-grid">
-                    {s.items.map((i) => (
-                      <div className="stack-item" key={i}>
-                        {i}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section reveal" id="certifications">
-          <div className="container">
-            <p className="section-label">Certificaciones</p>
-            <h2>Formación complementaria</h2>
-            <div className="cert-grid">
-              {CERTIFICACIONES.map((c) => (
-                <article className="cert-item" key={c.nombre}>
-                  <h3>{c.nombre}</h3>
-                  <p>
-                    {c.emisor} · {c.fecha}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section reveal" id="contact">
-          <div className="container">
-            <div className="final-cta glass-card">
-              <p className="section-label">Contacto</p>
-              <h2>¿Conversamos?</h2>
-              <p>
-                Estoy disponible para oportunidades en desarrollo web, soporte TI y sistemas, y para proyectos a medida.
-                Tengo disponibilidad inmediata.
-              </p>
-              <div className="cta-row" style={{ justifyContent: 'center' }}>
-                <a href={CONTACTO.whatsapp} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                  WhatsApp
-                </a>
-                <a href={`mailto:${CONTACTO.email}`} className="btn btn-secondary">
-                  Email
-                </a>
-                <a href={CONTACTO.linkedin} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-                <a href={CONTACTO.github} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
-      <footer className="footer">
-        <p>© {year} Johann Sebastian Guevara Elias · Jesús María, Lima, Perú</p>
+      <footer className="pie">
+        <div className="marco pie-grid">
+          <p>Johann Sebastian Guevara Elias</p>
+          <p>Ingeniería de Sistemas · Lima, Perú</p>
+          <p>© {year}</p>
+        </div>
       </footer>
     </>
   )
