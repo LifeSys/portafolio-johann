@@ -1,6 +1,8 @@
 // Pie de página con la marca LifeSystem Solutions, enlaces legales y contacto.
 // Se usa en la página principal y en las páginas legales.
 
+import { BotonPreferenciasCookies } from './AvisoCookies'
+
 const WEB = 'https://www.lifesystemsolution.online'
 
 export const EMPRESA = {
@@ -80,6 +82,9 @@ export default function Pie() {
                 </a>
               </li>
             ))}
+            <li>
+              <BotonPreferenciasCookies className="pie-boton-cookies" />
+            </li>
           </ul>
         </nav>
 

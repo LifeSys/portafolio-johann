@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Source_Serif_4 } from 'next/font/google'
 import './globals.css'
+import AvisoCookies from './AvisoCookies'
 
 // Las fuentes se descargan al compilar y se sirven desde el propio sitio (sin cookies ni llamadas a Google)
 const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-sans', display: 'swap' })
@@ -28,7 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${inter.variable} ${serif.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <AvisoCookies />
+      </body>
     </html>
   )
 }

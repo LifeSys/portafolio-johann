@@ -23,8 +23,14 @@ export default function Page() {
 
       <h2>2. Datos que recogemos</h2>
       <p>
-        Este sitio no tiene formularios, no pide registro y no recoge datos personales de los visitantes. Tampoco usa
-        herramientas de analítica ni de publicidad.
+        Este sitio no tiene formularios, no pide registro y no usa herramientas de publicidad.
+      </p>
+      <p>
+        Solo si aceptas las cookies de analítica, usamos Google Analytics 4 (Google LLC) para obtener estadísticas
+        agregadas de visitas: páginas vistas, duración, país o ciudad aproximados, tipo de dispositivo y navegador, y la
+        web de la que llegaste. Google trata estos datos según su propia política de privacidad y puede hacerlo fuera
+        del Perú. Puedes retirar tu consentimiento en cualquier momento desde &quot;Preferencias de cookies&quot;, al
+        pie de la página. Más detalles en la <a href="/politica-de-cookies">política de cookies</a>.
       </p>
       <p>
         Si decides escribirnos por correo, WhatsApp o LinkedIn, recibiremos los datos que tú mismo nos envíes, como tu

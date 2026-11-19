@@ -705,6 +705,69 @@ h3 {
   color: var(--ink);
 }
 
+.pie-boton-cookies {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.pie-boton-cookies:hover {
+  color: var(--ink);
+}
+
+/* Aviso de cookies */
+
+.aviso-cookies {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 20px 24px;
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--surface);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--surface-2), 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.aviso-cookies p {
+  flex: 1 1 320px;
+}
+
+.aviso-cookies a {
+  color: var(--ink);
+  text-underline-offset: 4px;
+}
+
+.aviso-cookies-botones {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-secundario {
+  color: var(--ink);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--muted);
+}
+
+.btn-secundario:hover {
+  background: var(--surface-2);
+}
+
 .ls-logo {
   display: inline-flex;
   align-items: center;
@@ -823,6 +886,11 @@ h3 {
 
 .legal-cuerpo a {
   text-underline-offset: 4px;
+}
+.legal-cuerpo ul {
+  display: grid;
+  gap: 6px;
+  padding-left: 20px;
 }
 
 /* ---------- Aparición al hacer scroll ---------- */
